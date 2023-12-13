@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 
 
-FILENAME = 'ground.jpg'
+FILENAME = 'g.jpg'
 
 X = 'x'
 O = 'o'
@@ -14,6 +14,16 @@ WHITE = (255, 255, 255)
 cells_content = [[BLANK, BLANK, BLANK],
                 [BLANK, BLANK, BLANK],
                 [BLANK, BLANK, BLANK]]
+
+
+def is_less(frst, scnd):
+    return frst < scnd
+
+def is_large(frst, scnd):
+    return frst > scnd
+
+def is_middle(c, min, max):
+    return min < c < max
 
 def main():
     image = cv.imread(cv.samples.findFile(FILENAME))
@@ -109,23 +119,23 @@ def main():
             center_x = center[0]
             center_y = center[1]
 
-            if center_x < min_v_line and center_y < min_h_line:
+            if is_less(center_x, min_v_line) and is_less(center_y, min_h_line):
                 cells_content[0][0] = O
-            elif center_x < min_v_line and min_v_line < max_v_line and center_y < min_h_line:
+            elif is_middle(center_x, min_v_line, max_v_line) and is_less(center_y, min_h_line):
                 cells_content[0][1] = O
-            elif center_x < max_v_line and center_y < min_h_line:
+            elif is_large(center_x, max_v_line) and is_less(center_y, min_h_line):
                 cells_content[0][2] = O
-            elif center_x < min_v_line and center_y < min_h_line and min_h_line < max_h_line:
+            elif is_less(center_x, min_v_line) and is_middle(center_y, min_h_line, max_h_line):
                 cells_content[1][0] = O
-            elif center_x < min_v_line and min_v_line < max_v_line and center_y < min_h_line and min_h_line < max_h_line:
+            elif is_middle(center_x, min_v_line, max_v_line) and is_middle(center_y, min_h_line, max_h_line):
                 cells_content[1][1] = O
-            elif center_x > max_v_line and center_y < min_h_line and min_h_line < max_h_line:
+            elif is_large(center_x, max_v_line) and is_middle(center_y, min_h_line, max_h_line):
                 cells_content[1][2] = O
-            elif center_x < min_v_line and center_y > max_h_line:
+            elif is_less(center_x, min_v_line) and is_large(center_y, max_h_line):
                 cells_content[2][0] = O
-            elif center_x < min_v_line and min_v_line < max_v_line and center_y > max_h_line:
+            elif is_middle(center_x, min_v_line, max_v_line) and is_large(center_y, max_h_line):
                 cells_content[2][1] = O
-            elif center_x > max_v_line and center_y > max_h_line:
+            elif is_large(center_x, max_v_line) and is_large(center_y, max_h_line):
                 cells_content[2][2] = O
 
     # X
@@ -142,23 +152,23 @@ def main():
                 center_x = int(M['m10'] / M['m00'])
                 center_y = int(M['m01'] / M['m00'])
 
-                if center_x < min_v_line and center_y < min_h_line and cells_content[0][0] != O:
+                if is_less(center_x, min_v_line) and is_less(center_y, min_h_line) and cells_content[0][0] != O:
                     cells_content[0][0] = X
-                elif center_x < min_v_line and min_v_line < max_v_line and center_y < min_h_line and cells_content[0][1] != O:
+                elif is_middle(center_x, min_v_line, max_v_line) and is_less(center_y, min_h_line) and cells_content[0][1] != O:
                     cells_content[0][1] = X
-                elif center_x > max_v_line and center_y < min_h_line and cells_content[0][2] != O:
+                elif is_large(center_x, max_v_line) and is_less(center_y, min_h_line) and cells_content[0][2] != O:
                     cells_content[0][2] = X
-                elif center_x < min_v_line and center_y < min_h_line and min_h_line < max_h_line and cells_content[1][0] != O:
+                elif is_less(center_x, min_v_line) and is_middle(center_y, min_h_line, max_h_line) and cells_content[1][0] != O:
                     cells_content[1][0] = X
-                elif center_x < min_v_line and min_v_line < max_v_line and center_y < min_h_line and min_h_line < max_h_line and cells_content[1][1] != O:
+                elif is_middle(center_x, min_v_line, max_v_line) and is_middle(center_y, min_h_line, max_h_line) and cells_content[1][1] != O:
                     cells_content[1][1] = X
-                elif center_x > max_v_line and center_y < min_h_line and min_h_line < max_h_line and cells_content[1][2] != O:
+                elif is_large(center_x, max_v_line) and is_middle(center_y, min_h_line, max_h_line) and cells_content[1][2] != O:
                     cells_content[1][2] = X
-                elif center_x > min_v_line and center_y > max_h_line and cells_content[2][0] != O:
+                elif is_less(center_x, min_v_line) and is_large(center_y, max_h_line) and cells_content[2][0] != O:
                     cells_content[2][0] = X
-                elif center_x < min_v_line and min_v_line < max_v_line and center_y > max_h_line and cells_content[2][1] != O:
+                elif is_middle(center_x, min_v_line, max_v_line) and is_large(center_y, max_h_line) and cells_content[2][1] != O:
                     cells_content[2][1] = X
-                elif center_x > max_v_line and center_y > max_h_line and cells_content[2][2] != O:
+                elif is_large(center_x, max_v_line) and is_large(center_y, max_h_line) and cells_content[2][2] != O:
                     cells_content[2][2] = X
 
                 cv.circle(gray_image, (center_x, center_y), 10, WHITE, -1)
