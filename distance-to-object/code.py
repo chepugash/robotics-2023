@@ -3,7 +3,7 @@ import numpy as np
 
 # Функция для вычисления фокусного расстояния камеры
 def get_focal_length(actual_width, pixel_width, distance):
-    focal_length = (distance_to_object * pixel_width) / actual_width
+    focal_length = (distance * pixel_width) / actual_width
     return focal_length
 
 # Функция для определения расстояния до объекта в видеопотоке
@@ -14,14 +14,13 @@ def get_distance(focal_length, actual_width, pixel_width):
 image = cv2.imread("init.jpg")
 focal_length = 0
 # Объект для замера
-actual_width = 15  # Фактическая ширина объекта в сантиметрах
-object_color = (0,0,0)  # Цвет объекта в формате BGR
+actual_width = 12  # Фактическая ширина объекта в сантиметрах
 # расстояние до объекта
 distance = 30  # Расстояние до объекта в сантиметрах
 
-# пороговые значения для выделение контура объекта (черный)
-lower_threshold = np.array([0, 0, 0])  # Нижние значения диапазона цвета в HSV
-upper_threshold = np.array([180, 50, 50])  # Верхние значения диапазона цвета в HSV
+# пороговые значения для выделение контура объекта (зеленый)
+lower_threshold = np.array([53, 0, 0])  # Нижние значения диапазона цвета в HSV
+upper_threshold = np.array([83, 255, 255])  # Верхние значения диапазона цвета в HSV
 
 hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 gray = cv2.inRange(hsv, lower_threshold, upper_threshold)
@@ -49,7 +48,7 @@ while True:
     # Преобразование изображения в пространство цветов HSV
     hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     
-    # Применение пороговых значений для выделения объектов заданного (черного) цвета
+    # Применение пороговых значений для выделения объектов заданного (зеленый) цвета
     mask = cv2.inRange(hsv_frame, lower_threshold, upper_threshold)
     
     # Нахождение контуров объектов
@@ -78,6 +77,7 @@ while True:
         # Прерывание цикла при нажатии клавиши "q"
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
+    else:
+        continue
 cap.release()
 cv2.destroyAllWindows()
