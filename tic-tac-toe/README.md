@@ -1,8 +1,11 @@
 input:
 
-![g](https://github.com/chepugash/robotics-2023/assets/90091175/3e60e7a4-b3a1-47ae-b8ea-42a40465d5b2)
+![telegram-cloud-document-2-5463254978116205964](https://github.com/chepugash/robotics-2023/assets/90271115/8332368d-b084-47ac-80a7-a3409feea6aa)
+
 
 output:
 
-![image](https://github.com/chepugash/robotics-2023/assets/90091175/46f921e9-6b5e-4641-9bd3-c742aedf6aa6)
-![image](https://github.com/chepugash/robotics-2023/assets/90091175/2cf3f04e-89c8-4e31-8a6a-a042d78e7129)
+![telegram-cloud-document-2-5463254978116205963](https://github.com/chepugash/robotics-2023/assets/90271115/27eb7f29-7fdd-497d-addc-d3eed5bc04d9)
+
+![telegram-cloud-document-2-5463254978116205966](https://github.com/chepugash/robotics-2023/assets/90271115/7c54b5f6-5a9d-4bac-aa36-9fdffa4aae24)
+
