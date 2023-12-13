@@ -11,7 +11,7 @@ def get_distance(focal_length, actual_width, pixel_width):
     distance = (focal_length * actual_width) / pixel_width
     return distance
 
-image = cv2.imread("init.jpg")
+image = cv2.imread("initial.jpg")
 focal_length = 0
 # Объект для замера
 actual_width = 12  # Фактическая ширина объекта в сантиметрах
