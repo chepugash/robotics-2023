@@ -3,7 +3,7 @@ import numpy as np
 
 # Функция для вычисления фокусного расстояния камеры
 def get_focal_length(actual_width, pixel_width, distance):
-    focal_length = (distance_to_object * pixel_width) / actual_width
+    focal_length = (distance * pixel_width) / actual_width
     return focal_length
 
 # Функция для определения расстояния до объекта в видеопотоке
@@ -78,6 +78,8 @@ while True:
         # Прерывание цикла при нажатии клавиши "q"
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+    else:
+        print("Контуры такого цвета не распознаны")
 
 cap.release()
 cv2.destroyAllWindows()
